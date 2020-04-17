@@ -16,7 +16,8 @@ auth();
 function auth(){
   if($user="Giulio" && $pass="cacca"){
     settacookie($user,$pass);
-    header('Location: AreaRiservata\index.php');
+    createToken($user,$pass);
+    header("Location: AreaRiservata\index.php");
   }
 }
 
@@ -25,6 +26,13 @@ function settacookie($username,$password){
     setcookie("username", $username, time() + (60 * 30), "/");
     setcookie("password", $password, time() + (60 * 30), "/");
   }
+}
+
+function createToken($user,$pass){
+  $random=rand(0,100000);
+  $token=md5($user.$pass.$random);
+  setcookie("token", $token, time() + (60 * 30), "/");
+  $_SESSION["token"]=$_COOKIE["token"];
 }
 
 ?>

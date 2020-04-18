@@ -1,38 +1,46 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: #24252A
-
 }
 
 li,a,button {
-  font-family: "Montserrat", sans-serif;
+  font-family:  'Poppins', sans-serif;
   font-weight: 500;
   font-size: 16px;
   color: #edf0f1;
   text-decoration: none;
 }
 
-header {
+nav{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 30px 10%;
+  min-height: 8vh;
+  font-family:  'Poppins', sans-serif;
+  background: linear-gradient(45deg,#b01c47,#D52936);
+  padding: 20px 10%;
 }
 
 .logo {
-  cursor: pointer;
+  margin-right: 20%;
+  justify-content: initial;
+  color: #edf0f1;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 40px;
 }
 
 .nav__links {
-  list-style: none;
+  list-style: flex;
+  justify-content: space-around;
+  width: 35%;
 }
 
 .nav__links li{
-  display: inline-block;
+  display: flex;
   padding: 0px 20px;
 }
 
@@ -55,4 +63,35 @@ button {
 
 button:hover {
   background-color: rgba(0,136,169,0.8);
+}
+
+.container
+{
+  width: 1200px;
+  height: 700px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  grid-gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.container .box
+{
+  position: relative;
+  background: #FC6C64;
+  padding: 20px 40px 40px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.cointeiner .box h3
+{
+   margin: 0;
+   padding: 0;
+   color: #CCD4D4;
+   font-size: 24px;
+   text-transform: uppercase;
 }

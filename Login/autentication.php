@@ -14,7 +14,7 @@ auth();
 
 
 function auth(){
-  if($user="Giulio" && $pass="cacca"){
+  if($user="ciao" && $pass="1234"){
     settacookie($user,$pass);
     createToken($user,$pass);
     header("Location: AreaRiservata\index.php");

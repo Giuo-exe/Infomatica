@@ -147,9 +147,9 @@ form{
 	margin-bottom: 4px;
 }
 
-a{
+.cointainer .login-content a{
 	display: block;
-	text-align: right;
+	text-align: center;
 	text-decoration: none;
 	color: #999;
 	font-size: 0.9rem;
@@ -159,6 +159,8 @@ a{
 a:hover{
 	color: #b01c47;
 }
+
+
 
 .btn{
 	display: block;
@@ -178,7 +180,7 @@ a:hover{
 	transition: .5s;
 }
 .btn:hover{
-	background-position: right;
+	background-position: center;
 }
 
 

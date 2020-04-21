@@ -24,7 +24,7 @@ if(isset($_COOKIE["token"])) {
 		<div class="login-content">
 			<form action="autentication.php" Method="POST">
 				<img src="img/avatar.svg">
-				<h2 class="title">Welcome</h2>
+				<h2 class="title">Benvenuto</h2>
            		<div class="input-div one">
            		   <div class="i">
            		   		<i class="fas fa-user"></i>
@@ -42,9 +42,14 @@ if(isset($_COOKIE["token"])) {
            		    	<h5>Password</h5>
            		    	<input type="password" class="input" name="password">
             	   </div>
-            	</div>
-            	<a href="#">Forgot Password?</a>
-            	<input type="submit" class="btn" value="Login">
+				</div>
+				<div class="forgot-password">
+					<a href="#">Password dimenticata?</a>
+				</div>
+				<input type="submit" class="btn" value="Login">
+				<div class="register">
+					<a href="#">Registrati</a>
+				</div>
             </form>
         </div>
     </div>

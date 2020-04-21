@@ -48,9 +48,9 @@ if(isset($_COOKIE["token"])) {
 				</div>
 				<input type="submit" class="btn" value="Login">
 				<div class="register">
-					<a href="#">Registrati</a>
+					<a href="register.php">Non sei registrato? Registrati</a>
 				</div>
-            </form>
+			</form>	
         </div>
     </div>
     <script type="text/javascript" src="js/main.js"></script>

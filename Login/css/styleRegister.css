@@ -5,6 +5,7 @@
 }
 
 body{
+    align-self: center;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
 }
@@ -18,11 +19,9 @@ body{
 }
 
 .container{
+    align-self: center;
     width: 100vw;
     height: 100vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap :7rem;
     padding: 0 2rem;
 }
 
@@ -33,8 +32,8 @@ body{
 }
 
 .login-content{
-	display: flex;
-	justify-content: flex-start;
+    display: flex;
+	justify-content: center;
 	align-items: center;
 	text-align: center;
 }

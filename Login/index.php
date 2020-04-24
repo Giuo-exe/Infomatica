@@ -1,7 +1,8 @@
 <?php
 if(isset($_COOKIE["token"])) {
 		//	include "connection.php";
-		header("Location: AreaRiservata\index.php");
+		include "autentication.php";
+		EstraiDati();
 }
 ?>
 
@@ -50,7 +51,7 @@ if(isset($_COOKIE["token"])) {
 				<div class="register">
 					<a href="register.php">Non sei registrato? Registrati</a>
 				</div>
-			</form>	
+			</form>
         </div>
     </div>
     <script type="text/javascript" src="js/main.js"></script>

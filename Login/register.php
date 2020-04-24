@@ -52,7 +52,7 @@
             	   </div>
 				</div>
 				<input type="submit" class="btn" value="Register">
-			</form>	
+			</form>
         </div>
     </div>
     <script type="text/javascript" src="js/main.js"></script>

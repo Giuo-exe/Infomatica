@@ -30,7 +30,7 @@ if(check()){
           <a href="https://www.youtube.com/watch?v=RbeEiHwx7Mk">
           <h2>1</h2>
           <h3>Prenota una stampa</h3>
-          <p>In questa sesione puoi prenotare la sua stampa</pack>         
+          <p>In questa sesione puoi prenotare la sua stampa</pack>
         </div>
         <div class="box">
           <h2>1</h2>
@@ -44,11 +44,13 @@ if(check()){
   <?php
 }
   else{
+    echo $_SESSION["token"]."    ".$_COOKIE["token"];
     echo "<html>
     <a href='https://www.youtube.com/watch?v=bfDnnG2Rcwg&has_verified=1'>
     <h1>Non puoi accedere a questa pagina
-
     <h1>Torna a fanculo
+
+
     </html>";}
 
 

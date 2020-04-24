@@ -32,7 +32,7 @@ if(isset($_COOKIE["token"])) {
            		   </div>
            		   <div class="div">
            		   		<h5>Username</h5>
-           		   		<input type="text" class="input" name="username">
+           		   		<input type="text" class="input" name="username" value="Giulio">
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -41,7 +41,7 @@ if(isset($_COOKIE["token"])) {
            		   </div>
            		   <div class="div">
            		    	<h5>Password</h5>
-           		    	<input type="password" class="input" name="password">
+           		    	<input type="password" class="input" name="password" value="terremoto">
             	   </div>
 				</div>
 				<div class="forgot-password">

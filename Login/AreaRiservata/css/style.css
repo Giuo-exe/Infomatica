@@ -15,9 +15,7 @@ li,a,button {
 }
 
 nav{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  display: relative;
   min-height: 8vh;
   font-family:  'Poppins', sans-serif;
   background: linear-gradient(45deg,#b01c47,#D52936);
@@ -25,31 +23,13 @@ nav{
 }
 
 .logo {
-  margin-right: 20%;
+  display: start
+  margin-right: 100px;
   justify-content: initial;
   color: #edf0f1;
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 40px;
-}
-
-.nav__links {
-  list-style: flex;
-  justify-content: space-around;
-  width: 35%;
-}
-
-.nav__links li{
-  display: flex;
-  padding: 0px 20px;
-}
-
-.nav__links li a {
-  transition: all 0.3s ease 0s;
-}
-
-.nav__links li a:hover {
-  color: #0088a9
 }
 
 button {
@@ -86,6 +66,8 @@ button:hover {
   overflow: hidden;
   border-radius: 20px;
 }
+
+
 
 .cointeiner .box h3
 {

@@ -1,7 +1,5 @@
 <?php
     session_start();
-
-    function dosomething(){
     include "connection.php";
     $user="";
     $pass="";
@@ -42,6 +40,18 @@
       settacookie($user,$pass);
       createToken($user,$pass);
       header("Location: AreaRiservata\index.php");
+    }else{
+      echo
+      "<html>
+        <head>
+          <link rel='stylesheet' type='text/css' href='css/style.css'>
+        </head>
+        <body>
+          <a href='index.php'>
+            <h5>Username o password non corretti</h5>
+          </a>
+        </body>
+      </html>";
     }
   }
 
@@ -58,5 +68,4 @@
     setcookie("token", $token, time() + (60 * 30), "/");
     $_SESSION["token"]=$_COOKIE["token"];
   }
-
 ?>

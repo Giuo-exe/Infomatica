@@ -18,16 +18,11 @@ if(check()){
           <div class="logo">
             <h4>Sala Stampa</h4>
           </div>
-          <ul class="nav__links">
-            <li><a href="#">Servizi</a></li>
-            <li><a href="#">Stampa</a></li>
-            <li><a href="#">Contattaci</a></li>
-          </ul>
         </nav>
       </header>
       <div class="container">
-      <div class="box">
-          <a href="https://www.youtube.com/watch?v=RbeEiHwx7Mk">
+        <div class="box">
+          <a href="calendar.php">
           <h2>1</h2>
           <h3>Prenota una stampa</h3>
           <p>In questa sesione puoi prenotare la sua stampa</pack>

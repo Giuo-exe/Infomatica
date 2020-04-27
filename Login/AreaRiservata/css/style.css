@@ -6,14 +6,6 @@
   padding: 0;
 }
 
-li,a,button {
-  font-family:  'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  color: #edf0f1;
-  text-decoration: none;
-}
-
 nav{
   display: relative;
   min-height: 8vh;
@@ -31,20 +23,6 @@ nav{
   letter-spacing: 5px;
   font-size: 40px;
 }
-
-button {
-  padding: 9px 25px;
-  background-color: rgba(0,136,169,1);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
-button:hover {
-  background-color: rgba(0,136,169,0.8);
-}
-
 .container
 {
   width: 1200px;
@@ -67,13 +45,15 @@ button:hover {
   border-radius: 20px;
 }
 
-
-
-.cointeiner .box h3
+.cointeiner .box h2
 {
    margin: 0;
    padding: 0;
    color: #CCD4D4;
    font-size: 24px;
    text-transform: uppercase;
+}
+
+a{
+  text-decoration: none;
 }

@@ -2,7 +2,14 @@
 if(isset($_COOKIE["token"])) {
 		//	include "connection.php";
 		include "autentication.php";
-		EstraiDati();
+
+		if(isset($_COOKIE["username"]) && isset($_COOKIE["password"])) {
+	    $user=$_COOKIE["username"];
+	    $pass=($_COOKIE["password"]);
+
+			echo $user;
+	    EstraiDati($user,$pass);
+	  }
 }
 ?>
 

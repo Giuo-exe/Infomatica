@@ -1,6 +1,7 @@
 <?php
     session_start();
     include "connection.php";
+    include "pre.php";
     $user="";
     $pass="";
 
@@ -10,7 +11,7 @@
       EstraiDati($user,$pass);
   }else if(isset($_COOKIE["username"]) && isset($_COOKIE["password"])) {
     $user=$_COOKIE["username"];
-    $pass=md5($_COOKIE["password"]);
+    $pass=($_COOKIE["password"]);
       EstraiDati($user,$pass);
   }
 
@@ -30,15 +31,21 @@
 			while($tupla=$records-> fetch_assoc()){
 				$u=$tupla['username'];
 				$p=$tupla['password'];
+        $n=$tupla['nome'];
+        $c=$tupla['cognome'];
+        $e=$tupla['email'];
+        $r=$tupla['ruolo'];
+        $cl=$tupla['classe'];
 			}
-      auth($u,$p,$user,$pass);
+      auth($u,$p,$user,$pass,$n,$c,$e,$r,$cl);
 		}
   }
 
-  function auth($u,$p,$user,$pass){
+  function auth($u,$p,$user,$pass,$n,$c,$e,$r,$cl){
     if($user==$u && $p==$pass){
       settacookie($user,$pass);
       createToken($user,$pass);
+      settasessione($u,$n,$c,$e,$r,$cl);
       header("Location: AreaRiservata\index.php");
     }else{
       echo
@@ -67,5 +74,15 @@
     $token=md5($user.$pass.$random);
     setcookie("token", $token, time() + (60 * 30), "/");
     $_SESSION["token"]=$_COOKIE["token"];
+  }
+
+  function settasessione($u,$n,$c,$e,$r,$cl){
+    $_SESSION["username"]=$u;
+    $_SESSION["nome"]=$n;
+    $_SESSION["cognome"]=$c;
+    $_SESSION["email"]=$e;
+    $_SESSION["ruolo"]=$r;
+    $_SESSION["classe"]=$cl;
+
   }
 ?>

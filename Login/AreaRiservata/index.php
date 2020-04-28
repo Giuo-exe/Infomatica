@@ -33,7 +33,6 @@ if(check()){
           <p>ciao</pack>
         </div>
       </div>
-
     </body>
   </html>
   <?php

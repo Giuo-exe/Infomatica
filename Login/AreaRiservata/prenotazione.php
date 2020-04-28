@@ -4,6 +4,8 @@ include "check.php";
 include "pre.php";
 include "connection.php";
 
+$prenotati = array();
+
 function prendidati($day,$month,$year){
   $sql = "SELECT p.nome, p.cognome, p.ruolo, p.classe, pr.n_copie, pr.costo, pr.date FROM persona p join prenotazione pr WHERE MONTH(pr.date)=$month and YEAR(pr.date)=$year and DAY(pr.date)=$day";
   $conn=connect();
@@ -39,8 +41,6 @@ function prendidati($day,$month,$year){
 }
 
 function prenotazioni(){
-
-
   if(isset($_GET['day'])&&isset($_GET['month'])&&isset($_GET['year'])){
     $day=$_GET['day'];
     $month=$_GET['month'];
@@ -61,21 +61,25 @@ function prenotazioni(){
     for($i=$ris;$i<count($orari);$i++){
       $trovato = false;
       $app=-1;
+      $j=0;
 
       if($prenotati!=null){
-        for($j=0;$j<count($prenotati);$j++){
+        while($j<count($prenotati)&&!$trovato){
           $orario = $prenotati[$j] -> get_orario();
+          echo $prenotati[$j] -> get_nome();
           $or = date("h:i", strtotime($orario));
 
           if($or == $orari[$i]){
             $trovato = TRUE;
             $app = $j;
           }
+          $j++;
         }
       }
 
       if(!$trovato){
-        $griglia.="<a href='formp.php'>";
+        $time = $orari[$i];
+        $griglia.="<a href='formp.php?day=$day&month=$month&year=$year&time=$time'>";
       }
 
       $griglia.="<div class='zoom'>";
@@ -83,6 +87,8 @@ function prenotazioni(){
       $griglia.="<div class='box'>";
 
       if($trovato){
+        echo "<br>$app";
+        echo "<br>".$prenotati[$app] -> get_ruolo();
         $app1 = $prenotati[$app] -> get_nome();
         $app2 = $prenotati[$app] -> get_cognome();
         $app3 = $prenotati[$app] -> get_classe();
@@ -132,9 +138,8 @@ if(check()){
   <?php
 }
   else{
-    echo $_SESSION["token"]."    ".$_COOKIE["token"];
     echo "<html>
-    <a href='https://www.youtube.com/watch?v=bfDnnG2Rcwg&has_verified=1'>
+    <a href=''>
     <h1>Non puoi accedere a questa pagina
     <h1>Torna a fanculo
 

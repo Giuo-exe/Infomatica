@@ -13,7 +13,7 @@
 	<img class="wave" src="img/waveR.png">
 	<div class="container">
 		<div class="login-content">
-			<form action="autentication.php" Method="POST">
+			<form action="regi.php" Method="POST">
 				<h2 class="title">Registrati</h2>
            		<div class="input-div one">
            		   <div class="i">
@@ -29,10 +29,28 @@
            		   		<i class="fas fa-user"></i>
            		   </div>
            		   <div class="div">
-           		   		<h5>Username</h5>
-           		   		<input type="text" class="input" name="username">
+           		   		<h5>Nome</h5>
+           		   		<input type="text" class="input" name="nome">
            		   </div>
+							 </div>
+								 <div class="input-div one">
+            		   <div class="i">
+            		   		<i class="fas fa-user"></i>
+            		   </div>
+            		   <div class="div">
+            		   		<h5>Cognome</h5>
+            		   		<input type="text" class="input" name="cognome">
+            		   </div>
            		</div>
+							<div class="input-div one">
+								<div class="i">
+									 <i class="fas fa-user"></i>
+								</div>
+								<div class="div">
+									 <h5>E-mail</h5>
+									 <input type="text" class="input" name="email">
+								</div>
+					 </div>
            		<div class="input-div pass">
            		   <div class="i">
            		    	<i class="fas fa-lock"></i>
@@ -48,9 +66,37 @@
            		   </div>
            		   <div class="div">
            		    	<h5>Conferma Password</h5>
-           		    	<input type="password" class="input" name="password">
+           		    	<input type="password" class="input" name="conpassword">
             	   </div>
-				</div>
+							 	</div>
+								<div class='radio-group'>
+						      <label>
+						        <input type='radio' value='studente' name='ruolo'>
+										<div class="i">
+						        	<h5>Studente</h5>
+										</div>
+						        <span></span>
+						      </label>
+						      <label>
+						        <input type='radio' value='professore' name='ruolo'>
+						       	<h5>professore</h5>
+						        <span></span>
+						      </label>
+									<label>
+						        <input type='radio' value='operatore' name='ruolo'>
+						       	<h5>operatore</h5>
+						        <span></span>
+						      </label>
+						    </div>
+								<div class="input-div one">
+	           		   <div class="i">
+	           		   		<i class="fas fa-user"></i>
+	           		   </div>
+	           		   <div class="div">
+	           		   		<h5>Classe (facoltativo)</h5>
+	           		   		<input type="text" class="input" name="classe">
+	           		   </div>
+	                </div>
 				<input type="submit" class="btn" value="Register">
 			</form>
         </div>

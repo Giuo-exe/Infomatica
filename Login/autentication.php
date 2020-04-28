@@ -1,7 +1,6 @@
 <?php
     session_start();
     include "connection.php";
-    include "pre.php";
     $user="";
     $pass="";
 

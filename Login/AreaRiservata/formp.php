@@ -4,6 +4,7 @@
   include "connection.php";
 
   $username = $_SESSION['username'];
+  echo $username;
   $day=$_GET['day'];
   $month=$_GET['month'];
   $year=$_GET['year'];
@@ -34,7 +35,7 @@
             if ($conn->query($sql) === TRUE) {
               echo "Dati Inseriti";
 
-                header("refresh:5; url=index.php");
+                header("refresh:2; url=index.php");
 
             } else {
               echo "Errore nella query: " . $conn->error;
@@ -58,6 +59,9 @@
   <link rel="stylesheet" href="css/styleform.css">
 </head>
 <body>
+  <div id='stars'></div>
+  <div id='stars2'></div>
+  <div id='stars3'></div>
   <form method='POST' action=''>
     Pagine<input type='number' name='pagine' min='0'><br>
     Note Aggiuntive<input type='text' name='note'><br>

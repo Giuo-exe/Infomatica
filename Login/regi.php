@@ -61,6 +61,7 @@ if(isset($_POST['username'])&&isset($_POST['nome'])
 
   function prendidati(){
     $user = array();
+    $username = $_SESSION['username'];
     $sql = "SELECT p.username FROM persona p";
     $conn=connect();
     $records=$conn->query($sql);

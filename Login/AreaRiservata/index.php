@@ -18,6 +18,14 @@ if(check()){
           <div class="logo">
             <h4>Sala Stampa</h4>
           </div>
+          <div class="group">
+            <div class="avatar">
+            </div>
+            <div class="info">
+              <h4><?php echo $_SESSION['username'];?></h4>
+              <h3><?php echo $_SESSION['ruolo'];?></h3>
+            </div>
+          </div>
         </nav>
       </header>
       <div class="container">

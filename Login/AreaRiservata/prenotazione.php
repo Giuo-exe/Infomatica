@@ -4,14 +4,13 @@ include "check.php";
 include "pre.php";
 include "connection.php";
 
-$prenotati = array();
+$preno = Array();
 
 function prendidati($day,$month,$year){
-  $sql = "SELECT p.nome, p.cognome, p.ruolo, p.classe, pr.n_copie, pr.costo, pr.date FROM persona p join prenotazione pr WHERE MONTH(pr.date)=$month and YEAR(pr.date)=$year and DAY(pr.date)=$day";
+
+  $sql = "SELECT p.nome, p.cognome, p.ruolo, p.classe, pr.n_copie, pr.costo, pr.date FROM persona p join prenotazione pr on p.username=pr.richiedente WHERE MONTH(pr.date)=$month and YEAR(pr.date)=$year and DAY(pr.date)=$day";
   $conn=connect();
   $records=$conn->query($sql);
-
-  $prenotati = Array();
 
   if ( $records == TRUE) {
       //echo "<br>Query eseguita!";
@@ -20,7 +19,7 @@ function prendidati($day,$month,$year){
   }
   //gestisco gli eventuali dati estratti dalla query
   if($records->num_rows == 0){
-    echo "la query non ha prodotto risultato";
+    echo "";
   }else{
     while($tupla=$records-> fetch_assoc()){
       $n=$tupla['nome'];
@@ -31,13 +30,10 @@ function prendidati($day,$month,$year){
       $costo=$tupla['costo'];
       $d=$tupla['date'];
       $oggetto = new pre($n,$c,$r,$cl,$n_c,$costo,$d);
-      $prenotati[] = $oggetto;
+      $preno[] = $oggetto;
     }
-    echo count($prenotati)."<br>";
-    echo $prenotati[0] -> get_nome();
-    echo date("h:i", strtotime($prenotati[0] -> get_nome()));
+    return $preno;
   }
-  return $prenotati;
 }
 
 function prenotazioni(){
@@ -45,11 +41,13 @@ function prenotazioni(){
     $day=$_GET['day'];
     $month=$_GET['month'];
     $year=$_GET['year'];
+    $prenotati = Array();
     $prenotati = prendidati($day,$month,$year);
+
     $ruolo=$_SESSION['ruolo'];
 
-    $orari = array("7:45","8:00","8:15","8:30","8:45",
-                  "9:00","9:15","9:30","9:45",
+    $orari = array("07:45","08:00","08:15","08:30","08:45",
+                  "09:00","09:15","09:30","09:45",
                   "10:00","10:15","10:30","10:45",
                   "11:00","11:15","11:30","11:45",
                   "12:00","12:15","12:30","12:45",
@@ -60,13 +58,12 @@ function prenotazioni(){
 
     for($i=$ris;$i<count($orari);$i++){
       $trovato = false;
-      $app=-1;
+      $app=0;
       $j=0;
 
       if($prenotati!=null){
         while($j<count($prenotati)&&!$trovato){
           $orario = $prenotati[$j] -> get_orario();
-          echo $prenotati[$j] -> get_nome();
           $or = date("h:i", strtotime($orario));
 
           if($or == $orari[$i]){
@@ -87,8 +84,7 @@ function prenotazioni(){
       $griglia.="<div class='box'>";
 
       if($trovato){
-        echo "<br>$app";
-        echo "<br>".$prenotati[$app] -> get_ruolo();
+        $prenotati[$app] -> get_nome();
         $app1 = $prenotati[$app] -> get_nome();
         $app2 = $prenotati[$app] -> get_cognome();
         $app3 = $prenotati[$app] -> get_classe();

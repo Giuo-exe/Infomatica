@@ -2,10 +2,19 @@
 session_start();
 include "check.php";
 
+function it($giorno){
+  if($giorno==0){
+    $giorno=7;
+  }else{
+    $giorno=$giorno-1;
+  }
+
+}
+
 function crea_calendario($month, $year){
 
 
-  $DaysOfWeek = array('Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica');
+  $DaysOfWeek = array('Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato');
 
   $firstDayOfMonth = mktime(0,0,0,$month,1,$year);
 
@@ -25,9 +34,7 @@ function crea_calendario($month, $year){
   $calendar.="<a class='btn btn-xs btn-primary' href='?month=".date('m',mktime(0,0,0,$month-1,1,$year))."&year=".date('Y',mktime(0,0,0,$month-1,1,$year))."'>Previous Month</a>";
   $calendar.="<a class='btn btn-xs btn-primary' href='?month=".date('m',mktime(0,0,0,$month+1,1,$year))."&year=".date('Y',mktime(0,0,0,$month+1,1,$year))."'>Next Month</a><center>";
 
-  if(isset($_GET['day']) && isset($_GET['month'])){
-    $month=$_GET['month'];
-  }
+  
 
   $calendar.="<tr>";
 

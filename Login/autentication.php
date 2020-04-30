@@ -7,15 +7,17 @@
   if (!empty($_POST["username"]) & !empty($_POST["password"])) {
     $user=$_POST["username"];
     $pass=md5($_POST["password"]);
+    echo $user.$pass;
       EstraiDati($user,$pass);
   }else if(isset($_COOKIE["username"]) && isset($_COOKIE["password"])) {
     $user=$_COOKIE["username"];
     $pass=($_COOKIE["password"]);
+
       EstraiDati($user,$pass);
   }
 
   function EstraiDati($user,$pass){
-    $sql = "SELECT persona.* FROM persona";
+    $sql = "SELECT p.* FROM persona p WHERE p.username='$user'";
     $conn=connect();
     $records=$conn->query($sql);
     if ( $records == TRUE) {
@@ -35,6 +37,7 @@
         $e=$tupla['email'];
         $r=$tupla['ruolo'];
         $cl=$tupla['classe'];
+
 			}
       auth($u,$p,$user,$pass,$n,$c,$e,$r,$cl);
 		}

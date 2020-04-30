@@ -31,9 +31,10 @@ if(check()){
       <div class="container">
         <div class="box">
           <a href="calendar.php">
-          <h2>1</h2>
-          <h3>Prenota una stampa</h3>
-          <p>In questa sesione puoi prenotare la sua stampa</pack>
+            <h2>1</h2>
+            <h3>Prenota una stampa</h3>
+            <p>In questa sesione puoi prenotare la sua stampa</pack>
+          </a>
         </div>
         <div class="box">
           <h2>1</h2>

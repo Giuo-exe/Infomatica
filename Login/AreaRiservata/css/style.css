@@ -7,19 +7,16 @@
 }
 
 nav{
-  display: grid;
+  display: relative;
   orientation: horizontal;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   min-height: 8vh;
   font-family:  'Poppins', sans-serif;
   background: linear-gradient(45deg,#b01c47,#D52936);
   padding: 20px 10%;
 }
 
-
-
 .logo {
-  display: start
+  position:fixed;
   margin-right: 100px;
   justify-content: initial;
   color: #edf0f1;
@@ -30,43 +27,43 @@ nav{
 }
 
 .group{
-  place-item: start end;
-  display: inline-grid;
-  background-color: #12312122;
-  grid-template-columns: repeat(auto-fit,minmax(1px,1fr));
-  grid-column-gap:1px;
+  display: grid;
+  grid-template-columns: 50px 50px;
+  margin-left: 90%;
+  justify-content: initial;
+  color: #edf0f1;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 40px;
+  height: 50px;
 }
 
 .avatar{
-  display: grid;
-  place-self: center end;
    width: 50px;
    height: 50px;
    border-radius: 50%;
-   background-color: #333;
+   background-color: #112312
 }
 
 .info{
+  display: grid;
+  margin: auto;
   width: 50%;
-  position: relative;
-  float: right;
-  display: inline;
-  place-self: center end;
-    background-color: #99991231;
-    grid-template-rows: repeat(auto-fit,minmax(2px,0.5fr));
+  grid-template-rows: 30px 30px;
 }
 
 .info h4{
+  font: sans-serif;
   margin: 0;
   padding: 0;
-  color: #CCD4D4;
+  color: #FFFFFF;
   font-size: 24px;
 }
 
 .info h3{
   margin: 0;
   padding: 0;
-  color: #CCD4D4;
+  color: #FFFFFF;
   font-size: 16px;
 }
 
@@ -92,7 +89,7 @@ nav{
   border-radius: 20px;
 }
 
-.cointeiner .box h2
+.container .box h2
 {
    margin: 0;
    padding: 0;
@@ -103,4 +100,8 @@ nav{
 
 a{
   text-decoration: none;
+}
+
+table{
+  font-family: sans-serif;
 }

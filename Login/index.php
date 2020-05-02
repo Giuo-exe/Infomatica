@@ -6,8 +6,6 @@ if(isset($_COOKIE["token"])) {
 		if(isset($_COOKIE["username"]) && isset($_COOKIE["password"])) {
 	    $user=$_COOKIE["username"];
 	    $pass=($_COOKIE["password"]);
-
-			echo $user;
 	    EstraiDati($user,$pass);
 	  }
 }
@@ -39,7 +37,7 @@ if(isset($_COOKIE["token"])) {
            		   </div>
            		   <div class="div">
            		   		<h5>Username</h5>
-           		   		<input type="text" class="input" name="username" value="Giulio">
+           		   		<input type="text" class="input" name="username" value="Giuo">
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -48,7 +46,7 @@ if(isset($_COOKIE["token"])) {
            		   </div>
            		   <div class="div">
            		    	<h5>Password</h5>
-           		    	<input type="password" class="input" name="password" value="terremoto">
+           		    	<input type="password" class="input" name="password" value="123">
             	   </div>
 				</div>
 				<div class="forgot-password">

@@ -18,14 +18,16 @@ if(check()){
           <div class="logo">
             <h4>Sala Stampa</h4>
           </div>
-          <div class="group">
-            <div class="avatar">
+          <a href="logout.php">
+            <div class="group">
+              <div class="avatar">
+              </div>
+              <div class="info">
+                <h4><?php echo $_SESSION['username'];?></h4>
+                <h3>LogOut</h3>
+              </div>
             </div>
-            <div class="info">
-              <h4><?php echo $_SESSION['username'];?></h4>
-              <h3><?php echo $_SESSION['ruolo'];?></h3>
-            </div>
-          </div>
+          </a>
         </nav>
       </header>
       <div class="container">
@@ -37,9 +39,11 @@ if(check()){
           </a>
         </div>
         <div class="box">
-          <h2>1</h2>
-          <h3>Service One</h3>
-          <p>ciao</pack>
+          <a href="operator/manage.php">
+            <h2>1</h2>
+            <h3>Service One</h3>
+            <p>ciao</pack>
+          </a>
         </div>
       </div>
     </body>
@@ -47,11 +51,9 @@ if(check()){
   <?php
 }
   else{
-    echo $_SESSION["token"]."    ".$_COOKIE["token"];
     echo "<html>
-    <a href='https://www.youtube.com/watch?v=bfDnnG2Rcwg&has_verified=1'>
+    <a href='../index.php'>
     <h1>Non puoi accedere a questa pagina
-    <h1>Torna a fanculo
 
 
     </html>";}

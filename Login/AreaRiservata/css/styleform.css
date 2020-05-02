@@ -6,6 +6,10 @@ html {
   overflow: hidden;
 }
 
+label{
+  color: #777777;
+}
+
 #stars {
   width: 1px;
   height: 1px;

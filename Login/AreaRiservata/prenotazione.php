@@ -3,13 +3,14 @@ session_start();
 include "check.php";
 include "pre.php";
 include "connection.php";
+include "operator/services.php";
 
 $preno = Array();
 
 function prendidati($day,$month,$year){
 
-  $sql = "SELECT p.nome, p.cognome, p.ruolo, p.classe, pr.n_copie, pr.costo, pr.date FROM persona p join prenotazione pr on p.username=pr.richiedente WHERE MONTH(pr.date)=$month and YEAR(pr.date)=$year and DAY(pr.date)=$day";
-  $conn=connect();
+  $sql = "SELECT p.nome, p.cognome, p.ruolo, p.classe, pr.n_copie, pr.costo, pr.date, pr.pagine, pr.tipo, pr.id_prenotazione,pr.nome_file FROM persona p join prenotazione pr on p.username=pr.richiedente WHERE MONTH(pr.date)=$month and YEAR(pr.date)=$year and DAY(pr.date)=$day";
+  $conn = connect();
   $records=$conn->query($sql);
 
   if ( $records == TRUE) {
@@ -22,14 +23,18 @@ function prendidati($day,$month,$year){
     echo "";
   }else{
     while($tupla=$records-> fetch_assoc()){
+      $id=$tupla['id_prenotazione'];
       $n=$tupla['nome'];
       $c=$tupla['cognome'];
       $r=$tupla['ruolo'];
       $cl=$tupla['classe'];
+      $p=$tupla['pagine'];
       $n_c=$tupla['n_copie'];
       $costo=$tupla['costo'];
+      $t=$tupla['tipo'];
       $d=$tupla['date'];
-      $oggetto = new pre($n,$c,$r,$cl,$n_c,$costo,$d);
+      $f=$tupla['nome_file'];
+      $oggetto = new pre($id,$n,$c,$r,$cl,$p,$n_c,$costo,$t,$d,$f,"");
       $preno[] = $oggetto;
     }
     return $preno;
@@ -90,6 +95,10 @@ function prenotazioni(){
         $app3 = $prenotati[$app] -> get_classe();
         $app4 = $prenotati[$app] -> get_ruolo();
         $griglia.="<h4>$app1 $app2   $app3   $app4</h4>";
+
+        $user = $_SESSION["username"];
+        $ora = $prenotati[$app] -> get_orario();
+        $griglia.="<i class='fas fa-trash' onclick='eliminaProgrammazione($user,$ora)'></i>";
       }
 
       $griglia.="<h2>$orari[$i]</h2>";
@@ -120,7 +129,7 @@ if(check()){
       <header>
         <nav>
           <div class="logo">
-            <h4>Sala Stampa</h4>
+            <h3>Sala Stampa</h3>
           </div>
         </nav>
       </header>
@@ -135,9 +144,8 @@ if(check()){
 }
   else{
     echo "<html>
-    <a href=''>
+    <a href='../index.php'>
     <h1>Non puoi accedere a questa pagina
-    <h1>Torna a fanculo
 
 
     </html>";}

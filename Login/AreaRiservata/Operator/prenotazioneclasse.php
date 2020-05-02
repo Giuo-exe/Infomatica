@@ -8,6 +8,7 @@ class prenotazione{
   public $copie;
   public $costo;
   public $orario;
+  public $file;
 
   function __construct($nome,$cognome,$ruolo,$classe,$copie,$costo,$orario) {
       $this->nome = $nome;
@@ -17,7 +18,9 @@ class prenotazione{
       $this->copie = $copie;
       $this->costo = $costo;
       $this->orario = $orario;
+      $this->$file = $file;
   }
+
 
 
   function set_nome($nome) {

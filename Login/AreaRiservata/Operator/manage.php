@@ -7,9 +7,9 @@ include "../pre.php";
 
 $preno = Array();
 
-function prendidati($day,$month,$year){
-
-  $sql = "SELECT p.nome, p.cognome, p.ruolo, p.classe, pr.n_copie, pr.costo, pr.date FROM persona p join prenotazione pr on p.username=pr.richiedente WHERE MONTH(pr.date)=$month and YEAR(pr.date)=$year and DAY(pr.date)=$day";
+function prendidati(){
+  $ownuser= $_SESSION['username'];
+  $sql = $_SESSION['ruolo'] == "operatore" ? "SELECT p.nome,p.cognome,p.ruolo,p.classe,pr.pagine,pr.n_copie,pr.costo,pr.tipo,pr.date,pr.id_prenotazione,pr.nome_file,pr.note from persona p join prenotazione pr on p.username=pr.richiedente ORDER BY pr.date" : "SELECT p.nome,p.cognome,p.ruolo,p.classe,pr.pagine,pr.n_copie,pr.costo,pr.tipo,pr.date from persona p join prenotazione pr on p.username=pr.richiedente WHERE pr.richiedente = $ownuser ORDER BY pr.date";
   $conn=connect();
   $records=$conn->query($sql);
 
@@ -23,86 +23,111 @@ function prendidati($day,$month,$year){
     echo "";
   }else{
     while($tupla=$records-> fetch_assoc()){
+      $i=$tupla['id_prenotazione'];
+      $n=$tupla['nome'];
+      $c=$tupla['cognome'];
+      $r=$tupla['ruolo'];
+      $cl=$tupla['classe'];
+      $p=$tupla['pagine'];
+      $n_c=$tupla['n_copie'];
+      $costo=$tupla['costo'];
+      $t=$tupla['tipo'];
+      $d=$tupla['date'];
+      $f=$tupla['nome_file'];
+      $v=$tupla['note'];
+      $oggetto = new pre($i,$n,$c,$r,$cl,$p,$n_c,$costo,$t,$d,$f,$v);
       $preno[] = $oggetto;
     }
-    return $preno;
   }
+  return $preno;
 }
 
-function dhn(){
+function tabella(){
+  $prenotazioni=prendidati();
+  $oggi = date("Y-m-d");     //date("h:i", strtotime(
 
-  $Attributi = Array("Nome","Cognome","Ruolo","Classe","Pagine","Copie","Costo","Data");
+  $Attributi = Array("Nome","Cognome","Note","Ruolo","Classe","Pagine","Copie","Formato","Costo","Data");
 
-  $tabella = "<table class='table table-bordered' style='width:100%'>";
+
+  $tabella = "<table class='content-table'>";
+
+  $tabella.= "<thead><tr>";
 
   foreach($Attributi as $a) {
     $tabella .= "<th class='header'><h4>$a</h4></th>";
   }
 
-  $tabella.= "</tr><tr>";
+  $tabella.= "</tr></thead>";
 
-  if($dayOfWeek > 0){
-    for($k=0;$k<$dayOfWeek;$k++){
-      $calendar.="<td></td>";
-    }
-  }
+  $oggi=true;
 
-  $currentDay = 1;
+  $tabella.="<tbody>";
 
-  $month = str_pad($month, 2,"0", STR_PAD_LEFT);
+  foreach($prenotazioni as $a){
 
-  while($currentDay <= $numberDays){
-  //  $calendar.="<a href='book.php?day='$currentDay'&month='$month>";
-    // se la settima colonna è stata raggiung inzia una nuova $remainingDays
-    if($dayOfWeek == 7){
-      $dayOfWeek = 0;
-      $calendar.="</tr><tr>";
-    }
+    $now = $a -> get_orario();
+    $nowbutdate = date("Y-m-d", strtotime($now));
+    $or="";
 
-    $currentDayRel = str_pad($currentDay, 2,"0", STR_PAD_LEFT);
-    $date = "$year-$month-$currentDayRel";
-    if($dateToday==$date){
-      $calendar.="<td class='today'><a href='prenotazione.php?day=$currentDay&month=$month&year=$year'><h4>$currentDay</h4>";
+    if(strtotime(date($nowbutdate)) < strtotime(date("Y-m-d"))){
+      $or = "<h4 id='passato'>Giorni passati</h4>";
+    }else if(strtotime(date($nowbutdate)) == strtotime(date("Y-m-d"))){
+      $or = "<h4 id='oggi'>".date("h:i", strtotime($now))."</h4>";
     }else{
-      $calendar.="<td><a href='prenotazione.php?day=$currentDay&month=$month&year=$year'><h4>$currentDay</h4>";
+      $or = "<h4 id='futuro'>Prossimamente</h4>";
     }
 
-    /*$dayname = stroloer(date('l',strtotime($date)));
-    $eventNum = 0;
-    $today = $date==date('T-m-d')? "today" : "";
-    if(date<date('T-m-d')){
-      $calendar.="<td><h4>$currentDay</h4> <button class='btn btn-danger btn-xs'>N/A</button>";
-    }else{
-      $calendar.="<td class='today'><h4>$currentDay</h4> <a href='book.php?date=".$date."' class='btn btn-success btn-xs'>Book</a>";
-    }*/
+    $id = $a -> get_id();
+    $file = $a -> get_file();
 
+    // $or = date("Y-m-d", strtotime($now) < date("Y-m-d") ? "<h4 id: '#passato' >Giorni passati</h4>" : (date("Y-m-d", strtotime($now) == date("Y-m-d")) ? "<h4 id='oggi'>".date("h:i:sa", strtotime($now))."</h4>" : "<h4 id='futuro'>Prossimamente</h4>"));
 
-    $calendar.="</a></td>";
-
-
-    //incremento il contatore
-    $currentDay++;
-    $dayOfWeek++;
+    $tabella.="<tr data-href='operation.php?id=$id&file=$file'>
+      <td>".$a -> get_nome()."</td>".
+      "<td>".$a -> get_cognome()."</td>".
+      "<td>".$a -> get_note()."</td>".
+      "<td>".$a -> get_ruolo()."</td>".
+      "<td>".$a -> get_classe()."</td>".
+      "<td>".$a -> get_pagine()."</td>".
+      "<td>".$a -> get_copie()."</td>".
+      "<td>".$a -> get_formato()."</td>".
+      "<td>".$a -> get_costo()." €</td>".
+      "<td>".$or."</td>";  //.date("h:i", strtotime($a -> get_orario()))
+    $tabella.="</tr>";
   }
 
-  //completamento della riga nell'ultima settimana del mese se necessario
+  $tabella.="</tbody>";
+  $tabella.="</table>";
 
-  if($dayOfWeek !=7){
-    $remainingDays = 7-$dayOfWeek;
-    for($i=0;$i<$remainingDays;$i++){
-      $calendar.="<td></td>";
-    }
-  }
-
-  $calendar.="</tr>";
-  $calendar.="</table>";
-
-  echo $calendar;
+  echo $tabella;
 }
 
 if(check()){
 ?>
   <html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Prenotazioni</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="css/style.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+      <?php tabella();?>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const rows = document.querySelectorAll("tr[data-href]");
+
+          rows.forEach(row =>{
+            row.addEventListener("click", () =>{
+              window.location.href = row.dataset.href;
+            });
+          });
+        });
+      </script>
+    <body>
   </html>
 <?php
 }

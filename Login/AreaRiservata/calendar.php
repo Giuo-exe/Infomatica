@@ -34,7 +34,7 @@ function crea_calendario($month, $year){
   $calendar.="<a class='btn btn-xs btn-primary' href='?month=".date('m',mktime(0,0,0,$month-1,1,$year))."&year=".date('Y',mktime(0,0,0,$month-1,1,$year))."'>Previous Month</a>";
   $calendar.="<a class='btn btn-xs btn-primary' href='?month=".date('m',mktime(0,0,0,$month+1,1,$year))."&year=".date('Y',mktime(0,0,0,$month+1,1,$year))."'>Next Month</a><center>";
 
-  
+
 
   $calendar.="<tr>";
 
@@ -116,60 +116,16 @@ if(check()){
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>Navbar</title>
+      <title>Calendario</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="css/style.css">
-      <style>
-        table, th, td {
-          border: 0.5px solid #CCD4D4;
-          border-collapse: collapse;
-        }
-        table{
-          padding: 30px;
-          table-layout: fixed;
-        }
-
-        td{
-          width: 33%;
-        }
-
-        h4{
-          margin: 0;
-          padding: 0;
-          color: #191919;
-          font-size: 22px;
-        }
-
-        td h4{
-          margin: 0;
-          padding: 0;
-          color: #191919;
-          font-size: 18px;
-          text-transform: uppercase;
-        }
-
-        .today{
-          background: yellow;
-        }
-
-
-        th, td {
-          padding: 15px;
-          text-align: center;
-        }
-
-        table .a{
-          display: block;
-          text-decoration: none;
-        }
-      </style>
+      <link rel="stylesheet" href="css/styleCalendar.css">
     </head>
     <body>
       <header>
         <nav>
           <div class="logo">
-            <h4>Sala Stampa</h4>
+            <h2>Sala Stampa</h2>
           </div>
         </nav>
       </header>

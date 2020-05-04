@@ -14,12 +14,39 @@ function eliminaProgrammazione($id){
     return false;
 }
 
+function eliminaStampa($id){
+  $sql="DELETE from stampa WHERE id_stampa='$id'";
+    $conn=connect();
+        if ($conn->query($sql) === TRUE) {
+          $conn->close();
+          return true;
+        } else {
+          echo "Errore nella query: " . $conn->error;
+        }
+
+    $conn->close();
+    return false;
+}
+
+function eliminaFile($id){
+  $sql="DELETE from file WHERE nome='$id'";
+    $conn=connect();
+        if ($conn->query($sql) === TRUE) {
+          $conn->close();
+          return true;
+        } else {
+          echo "Errore nella query: " . $conn->error;
+        }
+
+    $conn->close();
+    return false;
+}
+
 function aggiungiStampa($copie,$pagine,$tipo,$costo,$richiedente,$operatore,$data){
   $sql="Insert into stampa(n_copie,pagine,tipo,costo,richiedente,operatore,date)
     values('$copie','$pagine','$tipo','$costo','$richiedente','$operatore','$data')";
     $conn=connect();
         if ($conn->query($sql) === TRUE) {
-          echo "Dati Inseriti";
           $conn->close();
           return true;
         } else {

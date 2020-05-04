@@ -1,6 +1,14 @@
 <?php
 session_start();
 include "check.php";
+
+
+  function firstLetter(){
+    $words = $_SESSION['username'];
+    return $words[0];
+  }
+
+
 if(check()){
   ?>
   <html>
@@ -21,7 +29,9 @@ if(check()){
           <a href="logout.php">
             <div class="group">
               <div class="avatar">
+                <h2 id="firstWord"><?php firstLetter(); ?></h2>
               </div>
+
               <div class="info">
                 <h4><?php echo $_SESSION['username'];?></h4>
                 <h3>LogOut</h3>
@@ -33,16 +43,31 @@ if(check()){
       <div class="container">
         <div class="box">
           <a href="calendar.php">
-            <h2>1</h2>
-            <h3>Prenota una stampa</h3>
-            <p>In questa sesione puoi prenotare la sua stampa</pack>
+            <h2>Prenota una Stampa</h2>
+            <br>
+            <p>In questa sezione puoi prenotare la sua stampa e allegare il file di conseguenda</pack>
           </a>
         </div>
         <div class="box">
           <a href="operator/manage.php">
-            <h2>1</h2>
-            <h3>Service One</h3>
-            <p>ciao</pack>
+            <h2>Lista Prenotazioni</h2>
+            <br>
+            <p>In questa sezione è possibile gestire le tue prenotazioni o se sei un operatore anche quelle degli altri </pack>
+          </a>
+        </div>
+        <div class="box">
+          <a href="operator/viewstamp.php">
+            <h2>Cronologia Stampe</h2>
+            <br>
+            <p>Sezione per vedere la cronologia delle stampe effettuate</pack>
+          </a>
+        </div>
+        <div class="box">
+          <a href="">
+            <br>
+            <h2>Quadrato di simmetria</h2>
+            <br>
+            <p>Bottom text</pack>
           </a>
         </div>
       </div>

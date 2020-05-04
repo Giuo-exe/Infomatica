@@ -21,7 +21,7 @@ body{
 }
 
 .content-table thead tr {
-  background-color: #CC2424; /*b01c47*/
+  background-color: #FB9F06;
   color: #ffffff;
   text-align: center;
   font-weight: bold;
@@ -43,7 +43,7 @@ body{
 }
 
 .content-table tbody tr:last-of-type {
-  border-bottom: 2px solid #CC2424;
+  border-bottom: 2px solid #FB9F06;
 }
 
 .content-table tbody tr.active-row {
@@ -60,9 +60,9 @@ tr[data-href]{
 }
 
 #oggi{
-  color: #CC2424;
+  color: #FB9F06;
 }
 
 #futuro{
-  color: #5E3D89; /*#493EC3;*/
+  color: #493EC3;
 }

@@ -21,11 +21,9 @@ if(isset($_POST['username'])&&isset($_POST['nome'])
     if($user!=null){
       $i=0;
       while(!$trovato&&$i<count($user)){
-        $i++;
-        echo $user[$i]." ".$username;
-        if($user[$i]==$username){
-          $trovato = true;
-        }
+
+        $trovato = $user[$i]==$username ? true : false;
+        $i=$i+1;
       }
     }
     if(!$trovato){
@@ -35,7 +33,7 @@ if(isset($_POST['username'])&&isset($_POST['nome'])
           if ($conn->query($sql) === TRUE) {
             echo "Dati Inseriti";
 
-            header("refresh:3; url=index.php");
+          header("refresh:3; url=index.php");
 
           } else {
             echo "Errore nella query: " . $conn->error;
@@ -61,7 +59,6 @@ if(isset($_POST['username'])&&isset($_POST['nome'])
 
   function prendidati(){
     $user = array();
-    $username = $_SESSION['username'];
     $sql = "SELECT p.username FROM persona p";
     $conn=connect();
     $records=$conn->query($sql);

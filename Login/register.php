@@ -68,26 +68,25 @@
            		    	<h5>Conferma Password</h5>
            		    	<input type="password" class="input" name="conpassword">
             	   </div>
-							 	</div>
-								<div class='radio-group'>
-						      <label>
-						        <input type='radio' value='studente' name='ruolo'>
-										<div class="i">
-						        	<h5>Studente</h5>
-										</div>
-						        <span></span>
-						      </label>
-						      <label>
-						        <input type='radio' value='professore' name='ruolo'>
-						       	<h5>professore</h5>
-						        <span></span>
-						      </label>
-									<label>
-						        <input type='radio' value='operatore' name='ruolo'>
-						       	<h5>operatore</h5>
-						        <span></span>
-						      </label>
-						    </div>
+							 </div>
+							 <div class='radio-group'>
+								 <ul>
+								  <li>
+								    <input type="radio" id="f-option" name="ruolo" value="studente">
+								    <label for="f-option">Studente</label>
+
+								    <div class="check"></div>
+								  </li>
+
+								  <li>
+								    <input type="radio" id="s-option" name="ruolo" value="professore">
+								    <label for="s-option">Professore</label>
+
+								    <div class="check"><div class="inside"></div></div>
+								  </li>
+								</ul>
+							</div>
+
 								<div class="input-div one">
 	           		   <div class="i">
 	           		   		<i class="fas fa-user"></i>
@@ -97,7 +96,9 @@
 	           		   		<input type="text" class="input" name="classe">
 	           		   </div>
 	                </div>
+
 				<input type="submit" class="btn" value="Register">
+				<a href="index.php">Hai già un account? Accedi</a>
 			</form>
         </div>
     </div>

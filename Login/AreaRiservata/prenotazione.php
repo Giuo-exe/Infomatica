@@ -43,74 +43,83 @@ function prendidati($day,$month,$year){
 
 function prenotazioni(){
   if(isset($_GET['day'])&&isset($_GET['month'])&&isset($_GET['year'])){
+    $dataoggi = date("d");
+    $meseoggi= date("m");
     $day=$_GET['day'];
     $month=$_GET['month'];
     $year=$_GET['year'];
-    $prenotati = Array();
-    $prenotati = prendidati($day,$month,$year);
 
-    $ruolo=$_SESSION['ruolo'];
+    if(!($dataoggi > $day || $meseoggi > $month)){
 
-    $orari = array("07:45","08:00","08:15","08:30","08:45",
-                  "09:00","09:15","09:30","09:45",
-                  "10:00","10:15","10:30","10:45",
-                  "11:00","11:15","11:30","11:45",
-                  "12:00","12:15","12:30","12:45",
-                  "13:00","13:15","13:30");
 
-    $ris = $ruolo == "studente" ? 1 : 0;
-    $griglia="";
+      $prenotati = Array();
+      $prenotati = prendidati($day,$month,$year);
 
-    for($i=$ris;$i<count($orari);$i++){
-      $trovato = false;
-      $app=0;
-      $j=0;
+      $ruolo=$_SESSION['ruolo'];
 
-      if($prenotati!=null){
-        while($j<count($prenotati)&&!$trovato){
-          $orario = $prenotati[$j] -> get_orario();
-          $or = date("h:i", strtotime($orario));
+      $orari = array("07:45","08:00","08:15","08:30","08:45",
+                    "09:00","09:15","09:30","09:45",
+                    "10:00","10:15","10:30","10:45",
+                    "11:00","11:15","11:30","11:45",
+                    "12:00","12:15","12:30","12:45",
+                    "13:00","13:15","13:30");
 
-          if($or == $orari[$i]){
-            $trovato = TRUE;
-            $app = $j;
+      $ris = $ruolo == "studente" ? 1 : 0;
+      $griglia="";
+
+      for($i=$ris;$i<count($orari);$i++){
+        $trovato = false;
+        $app=0;
+        $j=0;
+
+        if($prenotati!=null){
+          while($j<count($prenotati)&&!$trovato){
+            $orario = $prenotati[$j] -> get_orario();
+            $or = date("h:i", strtotime($orario));
+
+            if($or == $orari[$i]){
+              $trovato = TRUE;
+              $app = $j;
+            }
+            $j++;
           }
-          $j++;
+        }
+
+        if(!$trovato){
+          $time = $orari[$i];
+          $griglia.="<a href='formp.php?day=$day&month=$month&year=$year&time=$time'>";
+        }
+
+        $griglia.="<div class='zoom'>";
+
+        $griglia.="<div class='box'>";
+
+        if($trovato){
+          $prenotati[$app] -> get_nome();
+          $app1 = $prenotati[$app] -> get_nome();
+          $app2 = $prenotati[$app] -> get_cognome();
+          $app3 = $prenotati[$app] -> get_classe();
+          $app4 = $prenotati[$app] -> get_ruolo();
+          $griglia.="<h4>$app1 $app2   $app3   $app4</h4>";
+
+          $user = $_SESSION["username"];
+          $ora = $prenotati[$app] -> get_orario();
+          $griglia.="<i class='fas fa-trash' onclick='eliminaProgrammazione($user,$ora)'></i>";
+        }
+
+        $griglia.="<h2>$orari[$i]</h2>";
+
+        $griglia.="</div></div>";
+
+        if(!$trovato){
+          $griglia.="</a>";
         }
       }
-
-      if(!$trovato){
-        $time = $orari[$i];
-        $griglia.="<a href='formp.php?day=$day&month=$month&year=$year&time=$time'>";
-      }
-
-      $griglia.="<div class='zoom'>";
-
-      $griglia.="<div class='box'>";
-
-      if($trovato){
-        $prenotati[$app] -> get_nome();
-        $app1 = $prenotati[$app] -> get_nome();
-        $app2 = $prenotati[$app] -> get_cognome();
-        $app3 = $prenotati[$app] -> get_classe();
-        $app4 = $prenotati[$app] -> get_ruolo();
-        $griglia.="<h4>$app1 $app2   $app3   $app4</h4>";
-
-        $user = $_SESSION["username"];
-        $ora = $prenotati[$app] -> get_orario();
-        $griglia.="<i class='fas fa-trash' onclick='eliminaProgrammazione($user,$ora)'></i>";
-      }
-
-      $griglia.="<h2>$orari[$i]</h2>";
-
-      $griglia.="</div></div>";
-
-      if(!$trovato){
-        $griglia.="</a>";
-      }
+      echo $griglia;
+    }else{
+    echo "<center><h1>Non puoi prenotare al passato</h1><center>";
     }
   }
-  echo $griglia;
 }
 
 

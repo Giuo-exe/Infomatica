@@ -3,6 +3,7 @@
   include "../connection.php";
   include "../pre.php";
   include "services.php";
+  include "check.php";
 
   if(isset($_POST['conferma'])){
     if(isset($_POST['copie'])&&isset($_POST['pagine'])&&isset($_POST['tipo'])){
@@ -19,15 +20,46 @@
         $costo = $copie * $pagine * 0.05;
 
       $operatore = $_SESSION['username'];
-      $data = date("Y-m-d h:i:s");
+      $data = date("Y-m-d H:i:s");
+
+
+      $id = isset($_GET['id']) ? $_GET['id'] : "";
+      $nome_file="";
+      $sql = "SELECT nome_file FROM prenotazione WHERE id_prenotazione = '$id'";
+      $conn=connect();
+      $records=$conn->query($sql);
+
+      if ( $records == TRUE) {
+          //echo "<br>Query eseguita!";
+      } else {
+        die("Errore nella query: " . $conn->error);
+      }
+      //gestisco gli eventuali dati estratti dalla query
+      if($records->num_rows == 0){
+      }else{
+        while($tupla=$records-> fetch_assoc()){
+          $nome_file=$tupla['nome_file'];
+        }
+      }
 
 
       if(aggiungiStampa($copie,$pagine,$tipo,$costo,$richiedente,$operatore,$data)){
-        echo "Inserimento riuscito";
+        echo "<h1 id='riuscito'>Inserimento riuscito</h1>";
 
-        header("refresh:2; url=../index.php");
+        if(!empty($id)){
+          eliminaProgrammazione($id);
+        }
+
+        if(!empty($nome_file)){
+          if(eliminaFile($nome_file)){
+            unlink("../caricamenti/$nome_file");
+          }else{
+          }
+        }
+
+         header("refresh:2; url=../index.php");
       }else{
-        echo "Inserimento non riuscito";
+        echo "<h1 id='fallito'>Inserimento non riuscito</h1>";
       }
     }
   }
@@ -46,7 +78,6 @@
     }
     //gestisco gli eventuali dati estratti dalla query
     if($records->num_rows == 0){
-      echo "";
     }else{
       while($tupla=$records-> fetch_assoc()){
         $i=$tupla['id_prenotazione'];
@@ -60,6 +91,8 @@
         $v=$tupla['note'];
         $oggetto = new pre($i,"","",$ruolo,"",$p,$n_c,$costo,$t,$d,$f,$v);
         $preno = $oggetto;
+        $id_prenotazione=$i;
+        $nome_file=$f;
         return $preno;
       }
     }
@@ -75,7 +108,7 @@
 
       $o = isset($_GET['id']) ? prendidati() : "";
 
-      if(isset($_GET['id'])){
+      if(isset($_GET['id']) && !empty($o)){
         $copie = $o -> get_copie();
         $pagine = $o -> get_pagine();
         $richiedente = $o -> get_ruolo();
@@ -88,7 +121,36 @@
       }
 
 
-      $ris ="<form method='POST' action=''>
+      $ris ="<center><h1 id='stampa'>Stampa</h1></center><br><form class='form-style-9' method='POST' action='' enctype='multipart/form-data'>
+        <ul>
+          <li>
+            <input type='number' value='$pagine' name='pagine' min='1' class='field-style field-split align-left' placeholder='Pagine' />
+            <input type='number' value='$copie' name='copie' min='1' class='field-style field-split align-right' placeholder='Copie' />
+          </li>
+          <li>
+            <input type='text' name='richiedente' class='field-style field-split align-left' placeholder='Richiedente' value='$richiedente' />
+          </li>
+          <li>
+            <div class='radio-group'>
+              <label>
+                <input type='radio' value='A3' name='tipo' $A3>
+                <label>A3<label>
+                <span></span>
+              </label>
+              <label>
+                <input type='radio' value='A4' name='tipo' $A4>
+                <label>A4<label>
+                <span></span>
+              </label>
+            </div>
+          </li>
+          <li>
+            <input type='submit' name='conferma' value='Conferma' class='field-style field-full align-none'/>
+          </li>
+        </ul>
+      </form>";
+
+      /*  "<form method='POST' action=''>
         <label>Pagine</label>
         <input type='number' value='$pagine' name='pagine' min='1'><br>
 
@@ -111,19 +173,41 @@
           </label>
         </div>
         <input type='submit' name='conferma'>
-      </form>";
+      </form>";*/
 
       echo $ris;
     }else{
-      echo "Non puoi accedere a questa pagina";
+      echo "<html>
+      <a href='../../index.php'>
+      <h1>Non puoi accedere a questa pagina
+
+
+      </html>";
     }
   }
 
-  function giungiStampa(){
-  }
+if(check()){
 
 ?>
-
 <html>
-  <?php creaForm() ?>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stampa</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styleForm.css">
+  </head>
+  <body>
+    <?php creaForm() ?>
+  </body>
 </html>
+<?php }
+else {
+  echo "<html>
+  <a href='../../index.php'>
+  <h1>Non puoi accedere a questa pagina
+
+
+  </html>";
+} ?>

@@ -23,7 +23,6 @@ nav{
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 40px;
-  background-color: #12312122;
 }
 
 .group{
@@ -42,7 +41,7 @@ nav{
    width: 50px;
    height: 50px;
    border-radius: 50%;
-   background-color: #112312
+   background-color: #F67F11;
 }
 
 .info{
@@ -69,8 +68,8 @@ nav{
 
 .container
 {
-  width: 1200px;
-  height: 700px;
+  width: 750px;
+  height: 750px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
@@ -89,19 +88,51 @@ nav{
   border-radius: 20px;
 }
 
+.container .box:nth-child(1)
+{
+  background: #EB690B;
+}
+.container .box:nth-child(2)
+{
+  background: #CC2424;
+}
+.container .box:nth-child(3)
+{
+  background: #FB9F06;
+}
+.container .box:nth-child(4)
+{
+  background: #C70039;
+}
+
 .container .box h2
 {
+  font-family: sans-serif;
    margin: 0;
    padding: 0;
-   color: #CCD4D4;
+   color: #FFFFFF;
    font-size: 24px;
    text-transform: uppercase;
 }
 
+.container .box p
+{
+  font-family: sans-serif;
+   margin: 0;
+   padding: 0;
+   color: #FFFFFF;
+   font-size: 18px;
+}
+
 a{
   text-decoration: none;
+  color:inherit;
 }
 
 table{
   font-family: sans-serif;
+}
+
+#firstWord{
+  text-align: center;
 }

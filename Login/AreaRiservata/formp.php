@@ -2,6 +2,7 @@
   session_start();
 
   include "connection.php";
+  include "check.php";
 
   $username = $_SESSION['username'];
   echo $username;
@@ -29,7 +30,7 @@
         echo $costo;
 
 
-      if(isset($_FILES['fileToUpload'])){
+      if(!($_FILES['fileToUpload']['error'] > 0)){
           $target_dir = "caricamenti/";
           $filename = basename($_FILES["fileToUpload"]["name"]);
           $target_file = $target_dir .   $filename ;
@@ -110,6 +111,7 @@
     echo "<h1>Devi inserire tutti i dati!<h1>";
   }
 }
+if(check()){
 ?>
 
 <html>
@@ -125,35 +127,55 @@
   <div id='stars'></div>
   <div id='stars2'></div>
   <div id='stars3'></div>
-  <form method='POST' action='' enctype="multipart/form-data">
-    <label>Pagine</label>
-    <input type='number' name='pagine' min='1'><br>
 
-    <label>Note Aggiuntive</label>
-    <input type='text' name='note'><br>
 
-    <label>Classe</label>
-      <input type='text' value=<?php echo $_SESSION['classe'];?> name='classe'><br>
-
-    <label>Copie</label>
-    <input type='number' name='copie' min='1'><br>
-
-    <div class='radio-group'>
-      <label>
-        <input type='radio' value='A3' name='tipo'>
-        <label>A3<label>
-        <span></span>
-      </label>
-      <label>
-        <input type='radio' value='A4' name='tipo'>
-        <label>A4<label>
-        <span></span>
-      </label>
-    </div>
-    <label>Upload file<label>
-    <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload">
-    <input type='submit' name='conferma'>
+  <form class="form-style-9" method='POST' action='' enctype="multipart/form-data">
+    <ul>
+      <li>
+        <input type="number" name="pagine" min="1" class="field-style field-split align-left" placeholder="Pagine" />
+        <input type="number" name="copie" min="1" class="field-style field-split align-right" placeholder="Copie" />
+      </li>
+      <li>
+        <div class='radio-group'>
+          <label>
+            <input type='radio' value='A3' name='tipo'>
+            <label>A3<label>
+            <span></span>
+          </label>
+          <label>
+            <input type='radio' value='A4' name='tipo'>
+            <label>A4<label>
+            <span></span>
+          </label>
+        </div>
+      </li>
+      <li>
+        <input type="text" name="classe" class="field-style field-split align-left" placeholder="Classe" />
+      </li>
+      <li>
+        <textarea name="note" class="field-style" placeholder="Note"></textarea>
+      </li>
+      <li>
+        <input type="file" name="fileToUpload" value="fileToUpload" id="fileToUpload" class="field-style field-split align-left">
+        <input type="submit" name='conferma' value="Conferma" class="field-style field-split align-right"/>
+      </li>
+    </ul>
   </form>
+
+
+
+
+
+  
 </body>
 
 </html>
+<?php }
+else{
+  echo "<html>
+  <a href='../index.php'>
+  <h1>Non puoi accedere a questa pagina
+
+
+  </html>";
+}?>
